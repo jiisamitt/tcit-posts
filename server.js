@@ -1,13 +1,15 @@
 const http = require('http');
 const pool = require('./config/db');
 const parseBody = require('./helpers/parseBody');
-
 const PORT = process.env.PORT || 3000;
 
 // Create the server
 const server = http.createServer((req, res) => {
 	// Set the response headers
 	res.setHeader('Content-Type', 'application/json');
+	res.setHeader('Access-Control-Allow-Origin', '*'); // Allows all origins
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS'); // Allow specific HTTP methods
+	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
 	// Handle "Create Post" (POST /posts)
 	if (req.method === 'POST' && req.url === '/posts') {
