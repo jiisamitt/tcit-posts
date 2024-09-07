@@ -11,6 +11,12 @@ const server = http.createServer((req, res) => {
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS'); // Allow specific HTTP methods
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
+	// Handle preflight OPTIONS request
+	if (req.method === 'OPTIONS') {
+		res.writeHead(204); // No content
+		return res.end();
+	}
+
 	// Handle "Create Post" (POST /posts)
 	if (req.method === 'POST' && req.url === '/posts') {
 		parseBody(req, async (err, body) => {
